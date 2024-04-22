@@ -44,7 +44,7 @@
 
     <header class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand fs-1" href="#"><img src=".\..\assets\logo.png" :style="{height: '50px'}"></a>
+            <a class="navbar-brand fs-1" href="#"><img src=".\..\assets\logo.png" :style="{ height: '50px' }"></a>
             <button class="navbar-toggler" type="button" @click="isNavbarOpen = !isNavbarOpen" aria-expanded="false"
                 aria-label="Toggle navigation" ref="navbarToggler">
                 <span class="navbar-toggler-icon"></span>
@@ -82,15 +82,15 @@ export default {
             loggedIn: false,
             formType: 'Ulogujte se',
             user: {
-                 korisnickoIme: '',
-                 lozinka: '',
-                 adresa: '',
-                 email: '',
-                 datumRodjenja: '',
-                 ime: '',
-                 prezime: '',
-                 telefon: '',
-                 zanimanje: '',
+                korisnickoIme: '',
+                lozinka: '',
+                adresa: '',
+                email: '',
+                datumRodjenja: '',
+                ime: '',
+                prezime: '',
+                telefon: '',
+                zanimanje: '',
             },
             showModal: false,
             isNavbarOpen: false,
@@ -125,13 +125,15 @@ export default {
             } else {
                 if (Object.values(this.user).some(value => value === '')) {
                     alert('Morate popuniti sva polja');
+                    console.log(this.user);
                     return;
                 }
                 if (this.user.lozinka.length < 6 || /\d/.test(this.user.lozinka) === false) {
                     alert('Lozinka mora imati najmanje 6 karaktera i bar jedan broj');
                     return;
                 }
-                if(this.user.telefon.length < 9 || this.user.telefon.length > 10) {
+                const phoneNumber = this.user.telefon.replace(/\D/g, '');
+                if (phoneNumber.length < 9 || phoneNumber.length > 10) {
                     alert('Telefon mora imati izmedju 9 i 10 cifara');
                     return;
                 }
@@ -163,7 +165,8 @@ export default {
                     alert('Pogresno korisnicko ime ili lozinka');
                 }
             } catch (error) {
-                this.error = 'There was a problem with the fetch operation: ' + error.message;
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         },
         async registerUser() {
@@ -180,7 +183,8 @@ export default {
                 }
                 this.showModal = false;
             } catch (error) {
-                this.error = 'There was a problem with the fetch operation: ' + error.message;
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         }
     }

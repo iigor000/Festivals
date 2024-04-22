@@ -63,7 +63,8 @@ export default {
                 }
                 this.festival = await response.json();
             } catch (error) {
-                alert(error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         }
     }

@@ -165,7 +165,8 @@ export default {
                 }
                 window.alert('Festival je uspešno dodat');
             } catch (error) {
-                window.alert('There was a problem with the request: ' + error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
             this.addFes = false;
         },
@@ -212,7 +213,8 @@ export default {
                 this.deleteFes = false;
                 window.alert('Festival je uspešno obrisan');
             } catch (error) {
-                window.alert('There was a problem with the request: ' + error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         },
         async fetchOrganizer(id) {
@@ -233,7 +235,8 @@ export default {
 
                 return organizer;
             } catch (error) {
-                this.error = 'There was a problem with the fetch operation: ' + error.message;
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         },
         uploadImage() {
@@ -264,7 +267,8 @@ export default {
                 window.alert('Molimo vas popunite sva polja');
                 return;
             }
-            if(this.organizer.kontaktTelefon.length < 9 || this.organizer.kontaktTelefon.length > 10) {
+            const phoneNumber = this.organizer.kontaktTelefon.replace(/\D/g, '');
+            if(phoneNumber.length < 9 || phoneNumber.length > 10) {
                     alert('Telefon mora imati izmedju 9 i 10 cifara');
                     return;
                 }
@@ -285,7 +289,8 @@ export default {
                 }
                 window.alert('Podaci su uspešno promenjeni');
             } catch (error) {
-                window.alert('There was a problem with the request: ' + error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         },
         async deleteOrganizer() {
@@ -308,7 +313,8 @@ export default {
                 window.alert('Organizator je uspešno obrisan');
                 this.$router.push('/');
             } catch (error) {
-                window.alert('There was a problem with the request: ' + error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         }
     },

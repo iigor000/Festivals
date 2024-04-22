@@ -74,7 +74,8 @@ export default {
                 return { height, ...festival };
             });
         } catch (error) {
-            alert(error.message)
+            localStorage.setItem('error', error.message);
+                this.$router.push('/error');
         }
     },
     methods: {

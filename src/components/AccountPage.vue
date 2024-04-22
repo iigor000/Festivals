@@ -110,7 +110,8 @@ export default {
 
                 this.user = user;
             } catch (error) {
-                window.alert('There was a problem with the fetch operation: ' + error.message);
+                localStorage.setItem('error',error.message);
+                this.$router.push('/error');
             }
         }
     },
@@ -120,7 +121,8 @@ export default {
                 window.alert('Morate popuniti sva polja');
                 return;
             }
-            if(this.user.telefon.length < 9 || this.user.telefon.length > 10) {
+            const phoneNumber = this.user.telefon.replace(/\D/g, '');
+            if(phoneNumber.length < 9 || phoneNumber.length > 10) {
                     alert('Telefon mora imati izmedju 9 i 10 cifara');
                     return;
                 }
@@ -152,7 +154,8 @@ export default {
                 this.edit = false;
                 window.alert('Uspesno ste promenili podatke');
             } catch (error) {
-                window.alert('There was a problem with the request: ' + error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         },
         async validatePassword() {
@@ -182,7 +185,8 @@ export default {
                     this.pasChange = false;
                     window.alert('Uspesno ste promenili lozinku');
                 } catch (error) {
-                    window.alert('There was a problem with the request: ' + error.message);
+                    localStorage.setItem('error', error.message);
+                    this.$router.push('/error');
                 }
             } else {
                 window.alert('Lozinke se ne poklapaju');
@@ -201,7 +205,8 @@ export default {
                 localStorage.removeItem('userId');
                 location.reload();
             } catch (error) {
-                window.alert('There was a problem with the request: ' + error.message);
+                localStorage.setItem('error', error.message);
+                this.$router.push('/error');
             }
         }
     }

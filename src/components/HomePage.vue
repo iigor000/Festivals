@@ -49,7 +49,8 @@ export default {
             });
             console.log(this.organizers); // Log the data after it's loaded
         } catch (error) {
-            alert(error.message)
+            localStorage.setItem('error', error.message);
+                this.$router.push('/error');
         }
     },
     computed: {

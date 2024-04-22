@@ -5,6 +5,7 @@ import FestivalPage from './components/FestivalPage.vue'
 import FestivalsPage from './components/FestivalsPage.vue'
 import OrganizerEdit from './components/OrganizerEdit.vue'
 import AccountPage from './components/AccountPage.vue'
+import ErrorPage from './components/ErrorPage.vue'
 
 const routes = [
   { path: '/', component: HomePage },
@@ -29,6 +30,9 @@ const routes = [
   },
   {
     path: '/account', component: AccountPage
+  },
+  {
+    path: '/error', component: ErrorPage
   }
 ]
 
