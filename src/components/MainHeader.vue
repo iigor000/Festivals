@@ -101,6 +101,7 @@ export default {
         if (userId) {
             this.loggedIn = true;
             this.links.push({ id: 3, label: "Moj profil", url: "/account" });
+            this.links.push({ id: 4, label: "Korisnici", url: "/users" });
         }
     },
     methods: {

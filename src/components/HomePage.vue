@@ -17,7 +17,7 @@
                     <div class="organizer-name display-3" style="font-weight: 400;">
                         <span v-for="(part, index) in highlightSearch(organizer.naziv)" :key="index" :class="{ 'highlight': part.toLowerCase() === search.toLowerCase() }">{{ part }}</span>
                     </div>
-                    <router-link :to="{ name: 'organizerEdit', params: { id: organizer.key } }"
+                    <router-link v-if="loggedIn" :to="{ name: 'organizerEdit', params: { id: organizer.key } }"
                         class="btn btn-transparent position-absolute top-0 start-0 m-3 text-light" @click.stop>
                         <i class="bi bi-pencil-square" :style="{ fontSize: '35px' }"></i></router-link>
                 </router-link>
@@ -60,6 +60,9 @@ export default {
             }
             return this.organizers.filter(organizer => organizer.naziv.toLowerCase().includes(this.search.toLowerCase()));
         },
+        loggedIn() {
+            return localStorage.getItem('userId') ? true : false;
+        }
     },
     methods: {
         highlightSearch(text) {
