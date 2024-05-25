@@ -152,7 +152,7 @@ export default {
     methods: {
         async addFestival() {
             try {
-                const url = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/` + this.organizer.festivali + '.json';
+                const url = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/` + this.organizer.festivali + '.json';
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -163,7 +163,15 @@ export default {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+
+                const fesResponse = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/' + this.organizer.festivali + '.json');
+                if (!fesResponse.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const festivals = await fesResponse.json();
+                this.festivalsData = festivals;
                 window.alert('Festival je uspešno dodat');
+                this.addFes = false;
             } catch (error) {
                 localStorage.setItem('error', error.message);
                 this.$router.push('/error');
@@ -196,7 +204,7 @@ export default {
         },
         async deleteFestival() {
             try {
-                const url = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/` + this.organizer.festivali + '/' + this.deleteFestivalId + '.json';
+                const url = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/` + this.organizer.festivali + '/' + this.deleteFestivalId + '.json';
                 const response = await fetch(url, {
                     method: 'DELETE',
                 });
@@ -204,7 +212,7 @@ export default {
                     throw new Error('Network response was not ok');
                 }
 
-                const fesResponse = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/' + this.organizer.festivali + '.json');
+                const fesResponse = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/' + this.organizer.festivali + '.json');
                 if (!fesResponse.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -225,7 +233,7 @@ export default {
                 }
                 const organizer = await response.json();
 
-                const response2 = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/' + organizer.festivali + '.json');
+                const response2 = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/' + organizer.festivali + '.json');
                 if (!response2.ok) {
                     throw new Error(`HTTP error! status: ${response2.status}`);
                 }
@@ -296,7 +304,7 @@ export default {
         async deleteOrganizer() {
             try {
                 const url = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/organizatoriFestivala/` + this.$route.params.id + '.json';
-                const festivalsUrl = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/` + this.organizer.festivali + '.json';
+                const festivalsUrl = `https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/` + this.organizer.festivali + '.json';
                 const response = await fetch(url, {
                     method: 'DELETE',
                 });

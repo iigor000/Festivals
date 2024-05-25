@@ -57,7 +57,7 @@ export default {
     methods: {
         async fetchFestival(id, festivalsId) {
             try {
-                const response = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/' + festivalsId + '/' + id + '.json');
+                const response = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/' + festivalsId + '/' + id + '.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }

@@ -56,9 +56,9 @@
                         <a class="nav-link" :href="link.url">{{ link.label }}</a>
                     </li>
                 </ul>
-                <button class="nav-link fs-4 btn-link text-nowrap hover-none" v-if="!loggedIn"
+                <button class="nav-link fs-4 btn-link text-nowrap hover-none log-button" v-if="!loggedIn"
                     @click="showModal = true">Ulogujte se</button>
-                <button class="nav-link fs-4 btn-link text-nowrap" v-else @click.prevent="logout">Izlogujte se</button>
+                <button class="nav-link fs-4 btn-link text-nowrap log-button" v-else @click.prevent="logout">Izlogujte se</button>
             </div>
         </div>
     </header>
@@ -102,6 +102,7 @@ export default {
             this.loggedIn = true;
             this.links.push({ id: 3, label: "Moj profil", url: "/account" });
             this.links.push({ id: 4, label: "Korisnici", url: "/users" });
+            this.links.push({ id: 5, label: "Izmeni organizatore", url: "/organizersEdit" });
         }
     },
     methods: {
@@ -191,3 +192,18 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.log-button{
+    transition: 0.5s;
+}
+
+.log-button:hover {
+    text-decoration: underline;
+    color: rgb(92, 92, 92);
+}
+
+.nav-link:hover{
+    text-decoration: underline;
+}
+</style>

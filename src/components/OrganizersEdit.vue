@@ -9,13 +9,26 @@
             <div v-if="filteredOrganizers.length === 0" class="text-center display-3 my-5">
                 <p>Nije pronadjen organizator :(</p>
             </div>
-            <div v-else class="masonry">
+            <div v-else>
                 <router-link v-for="(organizer, key) in filteredOrganizers" :key="key"
-                    class="organizer masonry-item mb-3 position-relative d-flex align-items-center justify-content-center text-white text-center rounded text-decoration-none"
-                    :to="{ name: 'organizer', params: { id: organizer.key } }"
-                    :style="{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${organizer.logo})`, backgroundSize: 'cover', backgroundPosition: 'center', height: organizer.height + 'px', transition: '0.3s' }">
-                    <div class="organizer-name display-3" style="font-weight: 400;">
-                        <span v-for="(part, index) in highlightSearch(organizer.naziv)" :key="index" :class="{ 'highlight': part.toLowerCase() === search.toLowerCase() }">{{ part }}</span>
+                    class="organizer mb-3 position-relative row align-items-center justify-content-center text-white text-center rounded text-decoration-none py-3"
+                    :to="{ name: 'organizerEdit', params: { id: organizer.key } }"
+                    :style="{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${organizer.logo})`, backgroundSize: 'cover', backgroundPosition: 'center', transition: '0.3s' }">
+                    <div class="organizer-name display-3 mt-3 mb-5" style="font-weight: 400;">
+                        <span v-for="(part, index) in highlightSearch(organizer.naziv)" :key="index"
+                            :class="{ 'highlight': part.toLowerCase() === search.toLowerCase() }">{{ part }}</span>
+                    </div>
+                    <div class="organizer-info">
+                        <div class="row">
+                            <div class="col-md-6 fs-4">
+                                <p>Email: {{ organizer.email }}</p>
+                                <p>Adresa: {{ organizer.adresa }}</p>
+                            </div>
+                            <div class="col-md-6 fs-4">
+                                <p>Godina osnivanja: {{ organizer.godinaOsnivanja }}</p>
+                                <p>Telefon: {{ organizer.telefon }}</p>
+                            </div>
+                        </div>
                     </div>
                 </router-link>
             </div>
@@ -47,7 +60,7 @@ export default {
             console.log(this.organizers); // Log the data after it's loaded
         } catch (error) {
             localStorage.setItem('error', error.message);
-                this.$router.push('/error');
+            this.$router.push('/error');
         }
     },
     computed: {
@@ -76,23 +89,6 @@ export default {
 <style scoped>
 .organizer:hover {
     filter: brightness(115%);
-}
-
-.masonry {
-    column-count: 1;
-    column-gap: 1em;
-}
-
-.masonry-item {
-    background-color: #eee;
-    margin-bottom: 1em;
-    break-inside: avoid;
-}
-
-@media (min-width: 1400px) {
-    .masonry {
-        column-count: 2;
-    }
 }
 
 .highlight {

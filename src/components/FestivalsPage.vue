@@ -55,14 +55,13 @@ export default {
     },
     async created() {
         try {
-            const response = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/.json');
+            const response = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const festivalsJson = await response.json();
             const festivals = [];
             for (const key in festivalsJson) {
-                if (key == 'korisnici' || key == 'organizatoriFestivala') continue;
                 for (const festivalKey in festivalsJson[key]) {
                     festivalsJson[key][festivalKey].id = festivalKey;
                     festivalsJson[key][festivalKey].organizerId = key;

@@ -8,6 +8,7 @@ import AccountPage from './components/AccountPage.vue'
 import UsersPage from './components/UsersPage.vue'
 import ErrorPage from './components/ErrorPage.vue'
 import UserPage from './components/UserPage.vue'
+import OrganinizersEdit from './components/OrganizersEdit.vue'
 
 const routes = [
   { path: '/', component: HomePage },
@@ -44,12 +45,15 @@ const routes = [
     name: 'user',
     component: UserPage,
     props: true
+  },
+  {
+    path: '/organizersEdit', component: OrganinizersEdit
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes // short for `routes: routes`
+  routes
 })
 
 export default router

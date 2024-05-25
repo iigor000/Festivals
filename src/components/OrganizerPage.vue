@@ -50,7 +50,7 @@ export default {
         }
         const organizer = await response.json();
 
-        const response2 = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/' + organizer.festivali + '.json');
+        const response2 = await fetch('https://veb-dizajn-8a4d7-default-rtdb.europe-west1.firebasedatabase.app/festivali/' + organizer.festivali + '.json');
         if (!response2.ok) {
           throw new Error(`HTTP error! status: ${response2.status}`);
         }
