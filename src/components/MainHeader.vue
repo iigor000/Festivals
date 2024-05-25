@@ -20,7 +20,7 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" id="email" class="form-control" v-model="user.email">
                     <label for="birthdate" class="form-label">Datum rodjenja</label>
-                    <input type="date" class="form-control" id="birthdate" v-model="user.datumRodjenja">
+                    <input type="date" class="form-control" id="birthdate" v-model="user.datumRodjenja" @input="updateDate">
                     <label for="name" class="form-label">Ime</label>
                     <input type="text" class="form-control" id="name" v-model="user.ime">
                     <label for="lastname" class="form-label">Prezime</label>
@@ -58,7 +58,8 @@
                 </ul>
                 <button class="nav-link fs-4 btn-link text-nowrap hover-none log-button" v-if="!loggedIn"
                     @click="showModal = true">Ulogujte se</button>
-                <button class="nav-link fs-4 btn-link text-nowrap log-button" v-else @click.prevent="logout">Izlogujte se</button>
+                <button class="nav-link fs-4 btn-link text-nowrap log-button" v-else @click.prevent="logout">Izlogujte
+                    se</button>
             </div>
         </div>
     </header>
@@ -106,6 +107,9 @@ export default {
         }
     },
     methods: {
+        updateDate(event) {
+            this.user.datumRodjenja = event.target.value;
+        },
         logout() {
             this.loggedIn = false;
             localStorage.removeItem('userId');
@@ -125,6 +129,11 @@ export default {
                 }
                 await this.loginUser();
             } else {
+                if (this.user.datumRodjenja === '') {
+                    alert('Morate uneti validan datum rodjenja');
+                    return;
+                }
+                
                 if (Object.values(this.user).some(value => value === '')) {
                     alert('Morate popuniti sva polja');
                     console.log(this.user);
@@ -132,6 +141,10 @@ export default {
                 }
                 if (this.user.lozinka.length < 6 || /\d/.test(this.user.lozinka) === false) {
                     alert('Lozinka mora imati najmanje 6 karaktera i bar jedan broj');
+                    return;
+                }
+                if (/[a-zA-Z]/.test(this.user.telefon)) {
+                    alert('Telefon ne sme sadržati slova');
                     return;
                 }
                 const phoneNumber = this.user.telefon.replace(/\D/g, '');
@@ -194,7 +207,7 @@ export default {
 </script>
 
 <style scoped>
-.log-button{
+.log-button {
     transition: 0.5s;
 }
 
@@ -203,7 +216,7 @@ export default {
     color: rgb(92, 92, 92);
 }
 
-.nav-link:hover{
+.nav-link:hover {
     text-decoration: underline;
 }
 </style>

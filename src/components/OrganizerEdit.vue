@@ -250,16 +250,6 @@ export default {
         uploadImage() {
             this.$refs.fileInput.click();
         },
-        validateEmail(event) {
-            const input = event.target;
-            if (!input.validity.valid) {
-                if (input.validity.typeMismatch) {
-                    input.setCustomValidity('Molimo vas unesite validan email');
-                }
-            } else {
-                input.setCustomValidity('');
-            }
-        },
         handleFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
@@ -275,11 +265,16 @@ export default {
                 window.alert('Molimo vas popunite sva polja');
                 return;
             }
+
+            if (/[a-zA-Z]/.test(this.organizer.kontaktTelefon)) {
+                alert('Telefon ne sme sadržati slova');
+                return;
+            }
             const phoneNumber = this.organizer.kontaktTelefon.replace(/\D/g, '');
-            if(phoneNumber.length < 9 || phoneNumber.length > 10) {
-                    alert('Telefon mora imati izmedju 9 i 10 cifara');
-                    return;
-                }
+            if (phoneNumber.length < 9 || phoneNumber.length > 10) {
+                alert('Telefon mora imati između 9 i 10 cifara i ne sme sadržati slova');
+                return;
+            }
             await this.submitOrganizer();
         },
         async submitOrganizer() {
@@ -319,7 +314,7 @@ export default {
                 }
 
                 window.alert('Organizator je uspešno obrisan');
-                this.$router.push('/');
+                this.$router.push('/organizersEdit');
             } catch (error) {
                 localStorage.setItem('error', error.message);
                 this.$router.push('/error');

@@ -2,9 +2,10 @@
     <div class="container">
         <h1 class="text-center my-5 display-1" style="font-weight: 400;">Organizatori festivala</h1>
         <div v-if="organizers" class="mb-5">
-            <div class="mb-3 d-flex justify-content-end">
+            <div class="mb-3 d-flex justify-content-between">
                 <input type="text" class="form-control" placeholder="Pretrazi" v-model="search"
                     :style="{ width: '300px' }">
+                    <button class="btn btn-primary" @click="$router.push('/addOrganizer')">Dodaj organizatora</button>
             </div>
             <div v-if="filteredOrganizers.length === 0" class="text-center display-3 my-5">
                 <p>Nije pronadjen organizator :(</p>

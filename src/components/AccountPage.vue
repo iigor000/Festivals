@@ -121,6 +121,10 @@ export default {
                 window.alert('Morate popuniti sva polja');
                 return;
             }
+            if (/[a-zA-Z]/.test(this.user.telefon)) {
+                alert('Telefon ne sme sadržati slova');
+                return;
+            }
             const phoneNumber = this.user.telefon.replace(/\D/g, '');
             if(phoneNumber.length < 9 || phoneNumber.length > 10) {
                     alert('Telefon mora imati izmedju 9 i 10 cifara');

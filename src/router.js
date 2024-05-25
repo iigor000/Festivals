@@ -9,6 +9,7 @@ import UsersPage from './components/UsersPage.vue'
 import ErrorPage from './components/ErrorPage.vue'
 import UserPage from './components/UserPage.vue'
 import OrganinizersEdit from './components/OrganizersEdit.vue'
+import AddOrganizer from './components/AddOrganizer.vue'
 
 const routes = [
   { path: '/', component: HomePage },
@@ -48,6 +49,9 @@ const routes = [
   },
   {
     path: '/organizersEdit', component: OrganinizersEdit
+  },
+  {
+    path: '/addOrganizer', component: AddOrganizer
   }
 ]
 
