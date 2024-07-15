@@ -23,4 +23,4 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-A simple project in vue.js using firebase. It shows festivals with CRUD functionality
+A vue.js app with CRUD functionality for festivals and festival organizers. User registrations and login functionalities. Made with firebase.
