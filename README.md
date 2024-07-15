@@ -1,4 +1,4 @@
-# festivali
+# Festivals
 
 ## Project setup
 ```
